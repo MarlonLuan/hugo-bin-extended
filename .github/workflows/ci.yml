@@ -3,10 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - "main"
-    tags:
-      - "v*"
-  pull_request:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -18,7 +15,7 @@ concurrency:
 
 env:
   FORCE_COLOR: 2
-  NODE_LTS: 24 # used for linting and publishing
+  NODE_LTS: lts/* # used for linting and publishing
 
 jobs:
   lint:
@@ -73,7 +70,7 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
         env:
-          NODE_DEBUG: hugo-bin
+          NODE_DEBUG: hugo-bin-extended
 
       - name: Print hugo version
         run: npm exec hugo version
@@ -109,7 +106,7 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
         env:
-          NODE_DEBUG: hugo-bin
+          NODE_DEBUG: hugo-bin-extended
 
       - name: Print hugo version
         run: npm exec hugo version
@@ -144,7 +141,7 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
         env:
-          NODE_DEBUG: hugo-bin
+          NODE_DEBUG: hugo-bin-extended
 
       - name: Print hugo version
         run: npm exec hugo version
@@ -154,9 +151,6 @@ jobs:
 
   publish:
     name: Publish on npm
-    # Workflow filename (ci.yml) and repo (fenneclab/hugo-bin) are matched against
-    # npm's Trusted Publisher config for this package - renaming either breaks OIDC auth.
-    if: github.repository == 'fenneclab/hugo-bin' && startsWith(github.ref, 'refs/tags/v')
     needs: [lint, test, test-extended, test-extended-withdeploy]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -185,6 +179,4 @@ jobs:
         run: echo "tag=$(npm run --silent npm-tag)" >> "$GITHUB_OUTPUT"
 
       - name: Publish on npm
-        env:
-          NPM_TAG: ${{ steps.npm-tag.outputs.tag }}
-        run: npm publish --provenance --access public --tag "$NPM_TAG"
+        run: npm publish --provenance --access public
