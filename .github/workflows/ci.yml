@@ -3,18 +3,14 @@ name: CI
 on:
   push:
     branches:
-      - "main"
-    tags:
-      - "v**"
-  pull_request:
-  workflow_dispatch:
+      - main
 
 permissions:
   contents: read
 
 env:
   FORCE_COLOR: 2
-  NODE_LTS: 24 # used for linting and publishing
+  NODE_LTS: lts/* # used for linting and publishing
 
 jobs:
   lint:
@@ -80,9 +76,6 @@ jobs:
     name: Node on ${{ matrix.os }} (Extended)
     runs-on: ${{ matrix.os }}
 
-    env:
-      HUGO_BIN_BUILD_TAGS: extended
-
     strategy:
       fail-fast: false
       matrix:
@@ -137,7 +130,7 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
         env:
-          NODE_DEBUG: hugo-bin
+          NODE_DEBUG: hugo-bin-extended
 
       - name: Print hugo version
         run: npm exec hugo version
@@ -147,7 +140,6 @@ jobs:
 
   publish:
     name: Publish on npm
-    if: github.repository == 'fenneclab/hugo-bin' && startsWith(github.ref, 'refs/tags/v')
     needs: [lint, test, test-extended, test-extended-withdeploy]
     runs-on: ubuntu-latest
     permissions:
