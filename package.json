@@ -5,20 +5,20 @@
   "description": "Binary wrapper for Hugo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fenneclab/hugo-bin.git"
+    "url": "git+https://github.com/MarlonLuan/hugo-bin-extended.git"
   },
   "bugs": {
-    "url": "https://github.com/fenneclab/hugo-bin/issues"
+    "url": "https://github.com/MarlonLuan/hugo-bin-extended/issues"
   },
-  "homepage": "https://github.com/fenneclab/hugo-bin#readme",
-  "author": "satoshun00 <shun.sato@fenneclab.com>",
+  "homepage": "https://github.com/MarlonLuan/hugo-bin-extended#readme",
+  "author": "MarlonLuan",
   "contributors": [
-    "XhmikosR <xhmikosr@gmail.com>"
+    "MarlonLuan"
   ],
   "funding": [
     {
       "type": "github",
-      "url": "https://github.com/sponsors/XhmikosR"
+      "url": "https://github.com/sponsors/MarlonLuan"
     }
   ],
   "keywords": [
