@@ -1,9 +1,9 @@
-# hugo-bin [![npm version](https://img.shields.io/npm/v/hugo-bin?logo=npm&logoColor=fff)](https://www.npmjs.com/package/hugo-bin) [![Build Status](https://img.shields.io/github/actions/workflow/status/fenneclab/hugo-bin/ci.yml?branch=main&label=CI&logo=github)](https://github.com/fenneclab/hugo-bin/actions/workflows/ci.yml?query=branch%3Amain)
+# hugo-bin-extended [![npm version](https://img.shields.io/npm/v/hugo-bin-extended?logo=npm&logoColor=fff)](https://www.npmjs.com/package/hugo-bin-extended) [![Build Status](https://img.shields.io/github/actions/workflow/status/MarlonLuan/hugo-bin-extended/ci.yml?branch=main&label=CI&logo=github)](https://github.com/MarlonLuan/hugo-bin-extended/actions/workflows/ci.yml?query=branch%3Amain)
 
 > Binary wrapper for [Hugo](https://github.com/gohugoio/hugo)
 
-- hugo-bin supports the [Extended Hugo version](https://github.com/gohugoio/hugo/releases/tag/v0.43)
-- hugo-bin supports the [withdeploy Hugo version](https://github.com/gohugoio/hugo/releases/tag/v0.137.0)
+- hugo-bin-extended supports the [Extended Hugo version](https://github.com/gohugoio/hugo/releases/tag/v0.43)
+- hugo-bin-extended supports the [withdeploy Hugo version](https://github.com/gohugoio/hugo/releases/tag/v0.137.0)
 - For usage within corporate networks or behind corporate proxies, the download repository can be overwritten
 
 See [Installation options](#installation-options) for more details.
@@ -11,10 +11,10 @@ See [Installation options](#installation-options) for more details.
 ## Install
 
 ```sh
-npm install hugo-bin --save-dev
+npm install hugo-bin-extended --save-dev
 ```
 
-Hugo is downloaded by hugo-bin's `postinstall` script. If it didn't run (`--ignore-scripts`, or your package manager doesn't allow it), run `npm rebuild hugo-bin`. With npm's `allowScripts`, approve it first with `npm approve-scripts hugo-bin`.
+Hugo is downloaded by hugo-bin-extended's `postinstall` script. If it didn't run (`--ignore-scripts`, or your package manager doesn't allow it), run `npm rebuild hugo-bin-extended`. With npm's `allowScripts`, approve it first with `npm approve-scripts hugo-bin-extended`.
 
 ## Usage
 
@@ -22,7 +22,7 @@ Hugo is downloaded by hugo-bin's `postinstall` script. If it didn't run (`--igno
 
 ```js
 import { execFile } from 'node:child_process';
-import hugoPath from 'hugo-bin';
+import hugoPath from 'hugo-bin-extended';
 
 execFile(hugoPath, ['version'], (error, stdout) => {
   if (error) {
@@ -66,20 +66,19 @@ See the [Hugo Documentation](https://gohugo.io/) for more information.
 
 ## Installation options
 
-> **Note:** If you change any of these options, run `npm rebuild hugo-bin` to download Hugo again.
+> **Note:** If you change any of these options, run `npm rebuild hugo-bin-extended` to download Hugo again.
 
-`hugo-bin` supports options to change the variation of Hugo binaries, to overwrite the download repository and the Hugo version.
+`hugo-bin-extended` supports options to change the variation of Hugo binaries, to overwrite the download repository and the Hugo version.
 
 Each option can be configured in one of the following ways:
 
-### The `hugo-bin` section of your `package.json`
+### The `hugo-bin-extended` section of your `package.json`
 
 ```json
 {
   "name": "your-package",
   "version": "0.0.1",
-  "hugo-bin": {
-    "buildTags": "extended",
+  "hugo-bin-extended": {
     "downloadRepo": "https://some.example.com/artifactory/github-releases",
     "version": "0.124.1"
   }
@@ -89,7 +88,6 @@ Each option can be configured in one of the following ways:
 ### As local or global [.npmrc](https://docs.npmjs.com/files/npmrc) configuration file
 
 ```ini
-hugo_bin_build_tags = "extended"
 hugo_bin_download_repo = "https://some.example.com/artifactory/github-releases"
 hugo_bin_hugo_version = "0.124.1"
 ```
@@ -99,7 +97,6 @@ hugo_bin_hugo_version = "0.124.1"
 On Linux/macOS:
 
 ```sh
-export HUGO_BIN_BUILD_TAGS="extended"
 export HUGO_BIN_DOWNLOAD_REPO="https://some.example.com/artifactory/github-releases"
 export HUGO_BIN_HUGO_VERSION="0.124.1"
 ```
@@ -107,7 +104,6 @@ export HUGO_BIN_HUGO_VERSION="0.124.1"
 On Windows:
 
 ```bat
-set HUGO_BIN_BUILD_TAGS=extended
 set HUGO_BIN_DOWNLOAD_REPO=https://some.example.com/artifactory/github-releases
 set HUGO_BIN_HUGO_VERSION=0.124.1
 ```
@@ -137,17 +133,14 @@ Set it to your proxy URL to download the Hugo binary from a different download r
 - Default: the version specified in [package.json](package.json)
 
 You can override the Hugo version here. Please note that if any of the URLs have changed upstream, you might not be able to use
-any version and you will probably need to update to a newer `hugo-bin` version which takes into consideration the new URLs.
-
-## Supported Hugo versions
-
-See [the package.json commit history](https://github.com/fenneclab/hugo-bin/commits/main/package.json).
+any version and you will probably need to update to a newer `hugo-bin-extended` version which takes into consideration the new URLs.
 
 ## Super Inspired By
 
 - [mastilver/apex-bin](https://github.com/mastilver/apex-bin)
 - [imagemin/jpegtran-bin](https://github.com/imagemin/jpegtran-bin)
+- [fenneclab/hugo-bin](https://github.com/fenneclab/hugo-bin)
 
 ## License
 
-[MIT](LICENSE) © Shun Sato
+[MIT](LICENSE) © [Marlon Luan](https://www.MarlonLuan.com/)
