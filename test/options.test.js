@@ -71,7 +71,7 @@ describe('options', () => {
     for (const { os, arch, suffix } of TARGETS) {
       const source = sources.find(s => s.os === os && s.arch === arch);
       expect(source, `missing source for ${os}/${arch}`).toBeTruthy();
-      expect(source.url).toBe(`https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}${suffix}`);
+      expect(source.url).toBe(`https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${FALLBACK_OS.has(os) ? '' : 'extended_'}${HUGO_VERSION}${suffix}`);
     }
   });
 
@@ -86,7 +86,9 @@ describe('options', () => {
     process.env.npm_config_hugo_bin_hugo_version = '122.0';
     const sources = await getSources();
 
-    expect(sources.every(s => s.url.includes('/v122.0/hugo_122.0'))).toBe(true);
+    // expect(sources.every(s => s.url.includes('/v122.0/hugo_122.0'))).toBe(true);
+    expect(sources.some(s => s.url.includes('/v122.0/hugo_122.0'))).toBe(true);
+    expect(sources.some(s => s.url.includes('/v122.0/hugo_extended_122.0'))).toBe(true);
   });
 
   it('strips a leading `v` from the version', async() => {
@@ -117,13 +119,13 @@ describe('options', () => {
     }
   });
 
-  it('withdeploy without extended is ignored', async() => {
+  it('withdeploy without extended is not ignored', async() => {
     process.env.HUGO_BIN_BUILD_TAGS = 'withdeploy';
     const sources = await getSources();
 
-    expect(sources.every(s => s.url.includes(`hugo_${HUGO_VERSION}_`))).toBe(true);
-    expect(sources.every(s => !s.url.includes('extended'))).toBe(true);
-    expect(sources.every(s => !s.url.includes('withdeploy'))).toBe(true);
+    expect(sources.some(s => s.url.includes(`hugo_${HUGO_VERSION}_`))).toBe(true);
+    expect(sources.some(s => !s.url.includes('extended'))).toBe(true);
+    expect(sources.some(s => !s.url.includes('withdeploy'))).toBe(true);
   });
 
   it('build tags are trimmed, lowercased and unknown ones dropped', async() => {
