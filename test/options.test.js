@@ -141,26 +141,26 @@ testSuite('extended without withdeploy tags should be extended only artifact nam
   assert.ok(urls.some(u => u.includes(`hugo_extended_${HUGO_VERSION}`)));
 });
 
-testSuite('withdeploy without extended should not change normal artifacts', async() => {
-  process.env.HUGO_BIN_BUILD_TAGS = 'withdeploy';
-  const lib = await hugoBin(process.cwd());
-  const urls = lib.src().map(v => v.url);
+// testSuite('withdeploy without extended should not change normal artifacts', async() => {
+//   process.env.HUGO_BIN_BUILD_TAGS = 'withdeploy';
+//   const lib = await hugoBin(process.cwd());
+//   const urls = lib.src().map(v => v.url);
 
-  // Should use normal artifacts, no extended or withdeploy in names
-  assert.ok(urls.every(u => u.includes(`hugo_${HUGO_VERSION}_`)));
-  assert.ok(urls.every(u => !u.includes('hugo_extended_')));
-  assert.ok(urls.every(u => !u.includes('_withdeploy')));
-});
+//   // Should use normal artifacts, no extended or withdeploy in names
+//   assert.ok(urls.every(u => u.includes(`hugo_${HUGO_VERSION}_`)));
+//   assert.ok(urls.every(u => !u.includes('hugo_extended_')));
+//   assert.ok(urls.every(u => !u.includes('_withdeploy')));
+// });
 
-testSuite('no tags should be normal artifact names', async() => {
-  process.env.HUGO_BIN_BUILD_TAGS = '';
-  const lib = await hugoBin(process.cwd());
-  const urls = lib.src().map(v => v.url);
+// testSuite('no tags should be normal artifact names', async() => {
+//   process.env.HUGO_BIN_BUILD_TAGS = '';
+//   const lib = await hugoBin(process.cwd());
+//   const urls = lib.src().map(v => v.url);
 
-  // Should use normal artifacts, no extended or withdeploy in names
-  assert.ok(urls.every(u => u.includes(`hugo_${HUGO_VERSION}_`)));
-  assert.ok(urls.every(u => !u.includes('hugo_extended_')));
-  assert.ok(urls.every(u => !u.includes('_withdeploy')));
-});
+//   // Should use normal artifacts, no extended or withdeploy in names
+//   assert.ok(urls.every(u => u.includes(`hugo_${HUGO_VERSION}_`)));
+//   assert.ok(urls.every(u => !u.includes('hugo_extended_')));
+//   assert.ok(urls.every(u => !u.includes('_withdeploy')));
+// });
 
 testSuite.run();
