@@ -4,11 +4,11 @@
 
 const assert = require('assert');
 const binCheck = require('bin-check');
-const hugoBin = require('..');
+const hugoBinExtended = require('..');
 
-describe('hugo-bin', () => {
+describe('hugo-bin-extended', () => {
   it('should return path to binary and work', () => {
-    return binCheck(hugoBin, ['version']).then(works => {
+    return binCheck(hugoBinExtended, ['version']).then(works => {
       assert(works);
     });
   });
