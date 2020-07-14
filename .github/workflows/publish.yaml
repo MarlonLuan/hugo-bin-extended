@@ -1,0 +1,31 @@
+name: Unit Test & Publish
+on:
+    push:
+        branches:
+            - master
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node: [ "14" ]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+            - name: Install & Build
+              run: npm install
+            - name: Unit Test
+              run: npm test
+            - name: NPM CI
+              run: npm ci
+            - name: Publish NPM
+              # run: npm publish
+              # env:
+              #    NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+              uses: JS-DevTools/npm-publish@v1
+              with:
+                  token: ${{ secrets.NPM_TOKEN }}
