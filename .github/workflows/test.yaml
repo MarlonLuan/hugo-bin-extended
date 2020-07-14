@@ -1,0 +1,19 @@
+name: Unit Test
+on: [ push, pull_request ]
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node: [ "12", "14" ]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+            - name: Install & Build
+              run: npm install
+            - name: Unit Test
+              run: npm test
