@@ -2,8 +2,8 @@ name: CI
 
 on:
   push:
-  pull_request:
-  workflow_dispatch:
+    branches:
+      - main
 
 env:
   FORCE_COLOR: 2
@@ -89,7 +89,6 @@ jobs:
         run: npm run uvu
 
   publish:
-    if: github.repository == 'fenneclab/hugo-bin' && startsWith(github.ref, 'refs/tags/')
     needs: [lint, test, test-extended]
     runs-on: ubuntu-latest
     steps:
